@@ -19,32 +19,19 @@ jobs:
         with:
           node-version: '22'
 
-      - name: 缓存pnpm依赖
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.pnpm-store
-            node_modules
-          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-${{ runner.os }}-
 
-      - name: 安装pnpm并配置环境
-        run: |
-            npm install -g pnpm
-            pnpm setup
           
 
       - name: 安装依赖
         run: |
           cd 01-quick-start
-          pnpm install
-          pnpm run build
+          npm install
+          npm run build
 
       - name: 安装nw和nw-builder
         run:
-          pnpm install -g nw nw-builder
-        
+          npm install -g nw nw-builder
+
       - name: 检查package.json, 有则删除
         run: |
           if [ -f package.json ]; then
