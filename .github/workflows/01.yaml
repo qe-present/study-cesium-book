@@ -2,7 +2,7 @@ name: 打包01项目
 on:
   workflow_dispatch:
     inputs:
-      name: build
+      name:
       description: '打包'
       required: true
       default: true
