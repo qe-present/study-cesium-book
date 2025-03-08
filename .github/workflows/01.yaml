@@ -45,4 +45,9 @@ jobs:
         run: |
           cd 01-dist
           nwbuild --mode=build --glob=false --flavor=sdk --cacheDir=./node_modules/nw --outDir=../build ./
+      - name: 上传
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build
 
