@@ -11,5 +11,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  }
+  },
+//   输出文件配置
+  build: {
+        outDir: '../01-dist',
+
+    }
 })

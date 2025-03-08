@@ -1,0 +1,53 @@
+name: 打包01项目
+on:
+  workflow_dispatch:
+    inputs:
+      name: build
+      description: '打包'
+      required: true
+      default: true
+      type: boolean
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: 读取项目
+        uses: actions/checkout@v4
+
+      - name: 设置node版本
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 缓存pnpm依赖
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
+
+      - name: 安装pnpm
+        run: npm install -g pnpm
+
+      - name: 安装依赖
+        run: pnpm install
+
+      - name: 打包
+        run: pnpm run build
+
+      - name: 安装nw和nw-builder
+        run: pnpm add -g nw nw-builder
+
+      - name: 检查package.json
+        run: |
+          if [ -f package.json ]; then
+            echo "package.json 已存在，跳过生成"
+          else
+            echo '{ "name": "01-dist", "version": "1.0.0", "main": "index.html", "window": { "icon": "vite.svg" } }' > package.json
+          fi
+      - name: 查看目录
+        run:  pwd
+
