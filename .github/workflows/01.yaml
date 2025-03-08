@@ -29,18 +29,21 @@ jobs:
           restore-keys: |
             pnpm-${{ runner.os }}-
 
-      - name: 安装pnpm
-        run: npm install -g pnpm
+      - name: 安装pnpm并安装依赖
+        run:|
+        npm install -g pnpm
+        pnpm setup
 
       - name: 安装依赖
         run: |
           cd 01-quick-start
           pnpm install
           pnpm run build
-      - name: 安装nw和nw-builder
-        run: pnpm add -g nw nw-builder
 
-      - name: 检查package.json
+      - name: 安装nw和nw-builder
+        run:
+          pnpm install -g nw nw-builder
+      - name: 检查package.json, 有则删除
         run: |
           if [ -f package.json ]; then
             echo "package.json 已存在，跳过生成"
@@ -49,4 +52,8 @@ jobs:
           fi
       - name: 查看目录
         run:  pwd
+      - name: 打包nw
+        run: |
+          cd 01-dist
+          nwbuild --mode=build --glob=false --flavor=sdk --cacheDir=./node_modules/nw --outDir=../build ./
 
