@@ -29,10 +29,11 @@ jobs:
           restore-keys: |
             pnpm-${{ runner.os }}-
 
-      - name: 安装pnpm并安装依赖
-        run:|
-        npm install -g pnpm
-        pnpm setup
+      - name: 安装pnpm并配置环境
+        run: |
+            npm install -g pnpm
+            pnpm setup
+          
 
       - name: 安装依赖
         run: |
@@ -43,6 +44,7 @@ jobs:
       - name: 安装nw和nw-builder
         run:
           pnpm install -g nw nw-builder
+        
       - name: 检查package.json, 有则删除
         run: |
           if [ -f package.json ]; then
