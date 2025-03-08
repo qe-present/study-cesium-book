@@ -31,6 +31,7 @@ jobs:
 
       - name: 检查package.json
         run: |
+          cd 01-quick-start
           if (Test-Path package.json) {
             Write-Output "package.json 已存在，跳过生成"
           } else {
