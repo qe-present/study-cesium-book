@@ -36,10 +36,7 @@ jobs:
         run: |
           cd 01-quick-start
           pnpm install
-
-      - name: 打包
-        run: pnpm run build
-
+          pnpm run build
       - name: 安装nw和nw-builder
         run: pnpm add -g nw nw-builder
 
