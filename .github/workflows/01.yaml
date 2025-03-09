@@ -27,7 +27,7 @@ jobs:
 
       - name: 安装nw和nw-builder
         run:
-          npm install -g nw nw-builder
+          npm install -g nw-builder
 
       - name: 写入package.json
         run: |
