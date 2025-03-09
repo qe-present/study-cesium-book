@@ -19,35 +19,19 @@ jobs:
         with:
           node-version: '22'
 
-      - name: 安装依赖
+      - name: 安装依赖并第一次打包
         run: |
           cd 01-quick-start
           npm install
           npm run build
 
-      - name: 安装nw和nw-builder
-        run:
-          npm install -g nw-builder
-
-      - name: 写入package.json
+      - name: 第二次打包
         run: |
           cd 01-dist
-          Set-Content -Path package.json -Value '{ "name": "01-dist", "version": "1.0.0", "main": "index.html", "window": { "icon": "vite.svg" } }'
-
-      - name: 查看目录
-        run:  |
-          cd 01-dist
-          ls
-          
-        
-
-      - name: 打包nw
-        run: |
-          cd 01-dist
-          nwbuild --mode=build --glob=false --flavor=sdk --cacheDir=./node_modules/nw --outDir=../build ./
+          npm install
+          npm run build
       - name: 上传
         uses: actions/upload-artifact@v4
         with:
           name: build
           path: build
-

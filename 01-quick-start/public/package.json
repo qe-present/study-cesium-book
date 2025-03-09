@@ -1,0 +1,14 @@
+{
+  "name": "01-dist",
+  "main": "index.html",
+  "version": "1.0.0",
+  "window": {
+    "icon": "vite.svg"
+  },
+  "dependencies": {
+    "nw-builder": "^4.13.9"
+  },
+  "scripts": {
+    "build": "nwbuild --mode=build --glob=false --flavor=sdk --cacheDir=./node_modules/nw --outDir=../build ./"
+  }
+}
